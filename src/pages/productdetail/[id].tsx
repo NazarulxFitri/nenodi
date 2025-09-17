@@ -1,5 +1,4 @@
 import MainLayout from "@/layouts/MainLayout";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import ProductDetailModule from "@/modules/ProductDetailModule";
 import { products } from "@/data/product";
@@ -37,7 +36,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   return {
     props: {
       product,
-      ...(await serverSideTranslations(locale ?? "en", ["common"])),
     },
   };
 }

@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import MainLayout from "@/layouts/MainLayout";
 import ShoppingCartModule from "@/modules/ShoppingCartModule";
 
@@ -22,8 +21,6 @@ export default function ShoppingCart() {
 
 export async function getServerSideProps({ locale }: { locale: string }) {
   return {
-    props: {
-      ...(await serverSideTranslations(locale, ["common"])),
-    },
+    props: {},
   };
 }

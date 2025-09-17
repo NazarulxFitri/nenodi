@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import MainLayout from "@/layouts/MainLayout";
 import axios from "axios";
 import cookie from "cookie";
@@ -75,7 +74,6 @@ export async function getServerSideProps({
     return {
       props: {
         data,
-        ...(await serverSideTranslations(locale!, ["common"])),
       },
     };
   } catch (err: unknown) {
@@ -88,7 +86,6 @@ export async function getServerSideProps({
     return {
       props: {
         rates: [],
-        ...(await serverSideTranslations(locale!, ["common"])),
       },
     };
   }

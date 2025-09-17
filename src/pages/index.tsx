@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import MainLayout from "@/layouts/MainLayout";
 import HomeModule from "@/modules/HomeModule";
 import { carouselImages } from "@/data/product";
@@ -119,8 +118,6 @@ export default function Home() {
 
 export async function getServerSideProps({ locale }: { locale: string }) {
   return {
-    props: {
-      ...(await serverSideTranslations(locale, ["common", "home"])),
-    },
+    props: {},
   };
 }
