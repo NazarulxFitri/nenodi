@@ -38,7 +38,7 @@ const ProductDetailModule: React.FC<ProductDetailModuleProps> = ({
   const router = useRouter();
   const fromPrice = Math.min(...product.variants.map((v) => v.price));
   const toPrice = Math.max(...product.variants.map((v) => v.price));
-  const [selectedVariantId, setSelectedVariantId] = useState<Number>(
+  const [selectedVariantId, setSelectedVariantId] = useState<number>(
     product.variants[0].variantId
   );
   const [selectedVariant, setSelectedVariant] = useState<ProductVariant>(

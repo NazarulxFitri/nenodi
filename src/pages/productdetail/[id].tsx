@@ -4,7 +4,7 @@ import Head from "next/head";
 import ProductDetailModule from "@/modules/ProductDetailModule";
 import { products } from "@/data/product";
 import { Product } from "@/types/ProductType";
-import { useCartStore } from "@/stores/useCartStores";
+import { GetServerSidePropsContext } from "next";
 
 interface ProductDetailProps {
   product: Product;
@@ -26,11 +26,11 @@ export default function ProductDetail({ product }: ProductDetailProps) {
     </MainLayout>
   );
 }
-export async function getServerSideProps(context: any) {
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { locale, params } = context;
   const id = params?.id as string;
-
-  const productsData = products;
+  const productsData: Product[] = products;
   const product: Product =
     productsData.find((product) => product.id === +id) ?? productsData[0];
 

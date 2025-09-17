@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 interface CourierRateRequest {
   pickup_postcode: string;
@@ -11,7 +11,11 @@ interface CourierRate {
   courier_id: string;
   service_detail: string;
   price: number;
-  [key: string]: any;
+  [key: string]: unknown; // More flexible for arbitrary properties
+}
+
+interface EasyParcelResponse {
+  result: CourierRate[];
 }
 
 export const useGetCourierRates = () => {
@@ -24,22 +28,28 @@ export const useGetCourierRates = () => {
     setError(null);
 
     try {
-      const response = await axios.post(
+      const response = await axios.post<EasyParcelResponse>(
         "http://connect.easyparcel.my/?ac=EPRateCheckingBulk",
         {
           api_key: "EP-vFgM9QFnb",
           ...data,
         }
       );
-      const filteredRates = response.data.filter(
+      const filteredRates = response.data.result.filter(
         (r: CourierRate) =>
           r.courier_id === "EP-CR0DS" && r.service_detail === "pickup"
       );
 
       setData(filteredRates);
       return filteredRates;
-    } catch (err: any) {
-      setError(err.message || "Failed to fetch courier rates");
+    } catch (err: unknown) {
+      if (err instanceof AxiosError) {
+        setError(err.message || "Failed to fetch courier rates");
+      } else if (err instanceof Error) {
+        setError(err.message || "Failed to fetch courier rates");
+      } else {
+        setError("An unknown error occurred");
+      }
       return [];
     } finally {
       setLoading(false);

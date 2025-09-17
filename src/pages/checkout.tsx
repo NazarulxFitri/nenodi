@@ -5,6 +5,7 @@ import axios from "axios";
 import cookie from "cookie";
 import { CourierResponse } from "@/types/CourierResponseType";
 import CheckoutModule from "@/modules/CheckoutModule";
+import { GetServerSidePropsContext } from "next";
 
 interface CheckoutProps {
   data: CourierResponse;
@@ -29,15 +30,13 @@ export default function Checkout({ data }: CheckoutProps) {
 export async function getServerSideProps({
   req,
   locale,
-}: {
-  req: any;
-  locale: string;
-}) {
+}: GetServerSidePropsContext) {
   try {
     const cookies = cookie.parse(req.headers.cookie || "");
     const deliveryInfo = cookies.deliveryInfo
       ? JSON.parse(cookies.deliveryInfo)
       : null;
+
     const send_code = deliveryInfo?.postcode || "43650";
     const send_state = deliveryInfo?.state || "Selangor";
     const send_country = deliveryInfo?.country || "MY";
@@ -60,6 +59,7 @@ export async function getServerSideProps({
         ],
       }
     );
+
     const data =
       response.data.result[0].rates.find(
         (courier: { courier_id: string; service_detail: string }) =>
@@ -71,18 +71,24 @@ export async function getServerSideProps({
           courier.courier_id === "EP-CR0ID" &&
           courier.service_detail === "pickup"
       );
+
     return {
       props: {
         data,
-        ...(await serverSideTranslations(locale, ["common"])),
+        ...(await serverSideTranslations(locale!, ["common"])),
       },
     };
-  } catch (err: any) {
-    console.error("EasyParcel fetch error:", err.message);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error("EasyParcel fetch error:", err.message);
+    } else {
+      console.error("EasyParcel fetch error:", err);
+    }
+
     return {
       props: {
         rates: [],
-        ...(await serverSideTranslations(locale, ["common"])),
+        ...(await serverSideTranslations(locale!, ["common"])),
       },
     };
   }
