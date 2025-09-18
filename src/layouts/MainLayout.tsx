@@ -153,7 +153,14 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             <Typography>+60102121936</Typography>
           </Box>
         </Box>
-        <Box display={"flex"} alignItems={"center"} gap={2}>
+        <Box
+          display={"flex"}
+          flexDirection={{ xs: "column", md: "row" }}
+          alignItems={"center"}
+          gap={2}
+          mt={{ xs: 2, md: 0 }}
+          px={2}
+        >
           <Image
             src="/images/easyparcel_logo.png"
             alt="Nenodi | Easy Parcel"

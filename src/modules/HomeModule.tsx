@@ -7,7 +7,7 @@ const HomeModule = () => {
   const productsData = products;
 
   return (
-    <Container sx={{ my: 4 }}>
+    <Container sx={{ my: 10 }}>
       <Grid container spacing={2} justifyContent="center">
         <Grid>
           <ProductCard

@@ -23,7 +23,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Box sx={{ background: "#ece3f0" }}>
-        <Grid container py={{ xs: 0, md: 2 }} alignItems={"center"}>
+        <Grid container py={{ xs: 0, md: 4 }} alignItems={"center"}>
           <Grid size={{ xs: 12, md: 6 }} p={6}>
             <Box>
               <Typography variant="h6" fontWeight={"300"}>

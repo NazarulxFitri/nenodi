@@ -56,7 +56,7 @@ const ProductDetailModule: React.FC<ProductDetailModuleProps> = ({
   }, [selectedVariantId]);
 
   return (
-    <Container sx={{ my: 2 }}>
+    <Container sx={{ my: 6 }}>
       <Box mb={2}>
         <Typography fontWeight={"700"} sx={{ color: "#d3bbdd" }}>
           <Link href={"/"} style={{ color: "#f8c0c8" }}>
@@ -238,7 +238,7 @@ const ProductDetailModule: React.FC<ProductDetailModuleProps> = ({
       <Box>
         <Grid
           size={{ xs: 12, md: 6 }}
-          mt={2}
+          mt={6}
           sx={{ display: { xs: "none", md: "block" } }}
         >
           <Swiper
